@@ -7,6 +7,7 @@ import com.codeborne.selenide.WebDriverRunner;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.awaitility.Awaitility;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
@@ -24,6 +25,8 @@ public class UIListener implements ITestListener {
         Configuration.browser = System.getProperty("browser", Browsers.EDGE);
         Configuration.browserSize = "1920x1080";
         Configuration.headless = System.getProperty("execution", "").equals("jenkins") ? Boolean.TRUE : Boolean.FALSE;
+        WebDriverRunner.setWebDriver(new EdgeDriver());
+
         Awaitility.setDefaultPollInterval(Duration.ofMillis(500));
         Awaitility.setDefaultPollDelay(Duration.ofMillis(500));
 

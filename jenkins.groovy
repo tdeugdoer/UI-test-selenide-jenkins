@@ -19,20 +19,6 @@ pipeline {
     }
 
     stages {
-        stage('Install Edge') {
-            steps {
-                sh '''
-                    # Переключение на root (если контейнер позволяет)
-                    apt-get update && \
-                    apt-get install -y wget gnupg && \
-                    curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > /usr/share/keyrings/microsoft-edge.gpg && \
-                    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/microsoft-edge.gpg] https://packages.microsoft.com/repos/edge stable main" > /etc/apt/sources.list.d/microsoft-edge.list && \
-                    apt-get update && \
-                    apt-get install -y microsoft-edge-stable
-                '''
-            }
-        }
-
         stage("clone repo") {
             steps {
                 getProject("$REPOSITORY", "$BRANCH")
@@ -50,7 +36,6 @@ pipeline {
                                 -Dallure_screenshots=$ALLURE_SCREENSHOTS \
                                 -Dallure_page_sources=$ALLURE_PAGE_SOURCES
                             """
-
                 }
             }
         }
