@@ -19,15 +19,6 @@ pipeline {
     }
 
     stages {
-        stage('Cleanup') {
-            steps {
-                sh '''
-                    rm -rf /tmp/edge-profile-*
-                    pkill -f "microsoft-edge" || true
-                '''
-            }
-        }
-
         stage("clone repo") {
             steps {
                 getProject("$REPOSITORY", "$BRANCH")
