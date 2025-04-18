@@ -11,7 +11,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>21</java.version>
+        <java.version>17</java.version>
         <selenide.version>7.8.1</selenide.version>
         <testng.version>7.11.0</testng.version>
         <assertj.version>3.27.3</assertj.version>
@@ -110,13 +110,6 @@
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
-                    <systemPropertyVariables>
-                        <execution>${execution}</execution>
-                        <base.url>${base.url}</base.url>
-                        <browser>${browser}</browser>
-                        <allure.screenshots>${allure.screenshots}</allure.screenshots>
-                        <allure.page.sources>${allure.page.sources}</allure.page.sources>
-                    </systemPropertyVariables>
                 </configuration>
                 <dependencies>
                     <dependency>
