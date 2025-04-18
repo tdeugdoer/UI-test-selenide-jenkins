@@ -1,13 +1,10 @@
 pipeline {
     agent any
 
-    params {
-        string(name: 'BRANCH', defaultValue: 'master')
-        choice(name: 'BROWSER', choices: ['edge', 'chrome', 'firefox', 'safari'])
-    }
-
     environment {
         EXECUTION = "jenkins"
+        BRANCH_NAME = "${BRANCH}"
+        BROWSER_NAME = "${BROWSER}"
         REPOSITORY = "https://github.com/tdeugdoer/UI-test-selenide-jenkins.git"
         BASE_URL = "https://pizzeria.skillbox.cc"
         ALLURE_SCREENSHOTS = "true"
@@ -17,7 +14,7 @@ pipeline {
     stages {
         stage("clone repo") {
             steps {
-                getProject("$REPOSITORY", "${params.BRANCH}")
+                getProject("$REPOSITORY", "$BRANCH_NAME")
             }
         }
 
@@ -28,7 +25,7 @@ pipeline {
                     mvn clean test \
                         -Dexecution=$EXECUTION \
                         -Dbase.url=$BASE_URL \
-                        -Dbrowser=${params.BROWSER} \
+                        -Dbrowser=$BROWSER_NAME \
                         -Dallure.screenshots=$ALLURE_SCREENSHOTS \
                         -Dallure.page.sources=$ALLURE_PAGE_SOURCES
                     """
