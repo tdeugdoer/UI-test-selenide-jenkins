@@ -28,8 +28,7 @@ pipeline {
         stage("run tests") {
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    withMaven() {
-                        sh """
+                    sh """
                             mvn clean test \
                                 -Dexecution=$EXECUTION \
                                 -Dbase.url=$BASE_URL \
@@ -37,7 +36,7 @@ pipeline {
                                 -Dallure.screenshots=$ALLURE_SCREENSHOTS \
                                 -Dallure.page.sources=$ALLURE_PAGE_SOURCES
                             """
-                    }
+
                 }
             }
         }
