@@ -31,9 +31,6 @@ public class UIListener implements ITestListener {
                 .screenshots(Boolean.parseBoolean(System.getProperty("allure_screenshots", Boolean.TRUE.toString())))
                 .savePageSource(Boolean.parseBoolean(System.getProperty("allure_page_sources", Boolean.TRUE.toString())))
         );
-        System.out.println("----------------------------------------------------");
-        System.out.println(WebDriverRunner.isEdge());
-        System.out.println("----------------------------------------------------");
     }
 
     @Override

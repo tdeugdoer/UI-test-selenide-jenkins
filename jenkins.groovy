@@ -19,6 +19,17 @@ pipeline {
     }
 
     stages {
+        stage('Setup Edge') {
+            steps {
+                sh '''
+                    # Команды установки из раздела 1
+                    curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | sudo tee /usr/share/keyrings/microsoft-edge.gpg > /dev/null
+                    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/microsoft-edge.gpg] https://packages.microsoft.com/repos/edge stable main" | sudo tee /etc/apt/sources.list.d/microsoft-edge.list
+                    sudo apt-get update && sudo apt-get install -y microsoft-edge-stable
+                '''
+            }
+        }
+
         stage("clone repo") {
             steps {
                 getProject("$REPOSITORY", "$BRANCH")
