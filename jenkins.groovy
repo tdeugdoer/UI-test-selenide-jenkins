@@ -31,10 +31,10 @@ pipeline {
                     sh """
                             mvn clean test \
                                 -Dexecution=$EXECUTION \
-                                -Dbase.url=$BASE_URL \
+                                -Dbase_url=$BASE_URL \
                                 -Dbrowser=$BROWSER \
-                                -Dallure.screenshots=$ALLURE_SCREENSHOTS \
-                                -Dallure.page.sources=$ALLURE_PAGE_SOURCES
+                                -Dallure_screenshots=$ALLURE_SCREENSHOTS \
+                                -Dallure_page_sources=$ALLURE_PAGE_SOURCES
                             """
 
                 }

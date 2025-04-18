@@ -16,8 +16,7 @@ import java.time.Duration;
 public class UIListener implements ITestListener {
     @Override
     public void onStart(ITestContext context) {
-        Configuration.baseUrl = System.getProperty("base.url", TestConstants.Urls.BASE_URL);
-        System.out.println(System.getProperty("base.url"));
+        Configuration.baseUrl = System.getProperty("base_url", TestConstants.Urls.BASE_URL);
         Configuration.browser = System.getProperty("browser", Browsers.EDGE);
         Configuration.browserSize = "1920x1080";
         Configuration.headless = System.getProperty("execution", "").equals("jenkins") ? Boolean.TRUE : Boolean.FALSE;
@@ -26,8 +25,8 @@ public class UIListener implements ITestListener {
         Awaitility.setDefaultPollDelay(Duration.ofMillis(500));
 
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide()
-                .screenshots(Boolean.parseBoolean(System.getProperty("allure.screenshots", Boolean.TRUE.toString())))
-                .savePageSource(Boolean.parseBoolean(System.getProperty("allure.page.sources", Boolean.TRUE.toString())))
+                .screenshots(Boolean.parseBoolean(System.getProperty("allure_screenshots", Boolean.TRUE.toString())))
+                .savePageSource(Boolean.parseBoolean(System.getProperty("allure_page_sources", Boolean.TRUE.toString())))
         );
     }
 
