@@ -17,7 +17,7 @@ public class UIListener implements ITestListener {
     @Override
     public void onStart(ITestContext context) {
         Configuration.baseUrl = System.getProperty("base.url", TestConstants.Urls.BASE_URL);
-        System.out.println(System.getProperty("base.url", TestConstants.Urls.BASE_URL));
+        System.out.println(System.getProperty("base.url"));
         Configuration.browser = System.getProperty("browser", Browsers.EDGE);
         Configuration.browserSize = "1920x1080";
         Configuration.headless = System.getProperty("execution", "").equals("jenkins") ? Boolean.TRUE : Boolean.FALSE;
