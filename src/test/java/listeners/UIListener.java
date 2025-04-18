@@ -25,8 +25,7 @@ public class UIListener implements ITestListener {
         Configuration.browser = System.getProperty("browser", Browsers.EDGE);
         Configuration.browserSize = "1920x1080";
         Configuration.headless = System.getProperty("execution", "").equals("jenkins") ? Boolean.TRUE : Boolean.FALSE;
-        WebDriverRunner.setWebDriver(new EdgeDriver());
-
+        Selenide.open("about:blank");
         Awaitility.setDefaultPollInterval(Duration.ofMillis(500));
         Awaitility.setDefaultPollDelay(Duration.ofMillis(500));
 
