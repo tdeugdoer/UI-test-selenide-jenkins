@@ -15,20 +15,21 @@ import java.time.Duration;
 
 public class UIListener implements ITestListener {
     @Override
-        public void onStart(ITestContext context) {
-            Configuration.baseUrl = System.getProperty("base.url", TestConstants.Urls.BASE_URL);
-            Configuration.browser = System.getProperty("browser", Browsers.EDGE);
-            Configuration.browserSize = "1920x1080";
-            Configuration.headless = System.getProperty("execution").equals("jenkins") ? Boolean.TRUE : Boolean.FALSE;
+    public void onStart(ITestContext context) {
+        Configuration.baseUrl = System.getProperty("base.url", TestConstants.Urls.BASE_URL);
+        System.out.println(System.getProperty("base.url", TestConstants.Urls.BASE_URL));
+        Configuration.browser = System.getProperty("browser", Browsers.EDGE);
+        Configuration.browserSize = "1920x1080";
+        Configuration.headless = System.getProperty("execution", "").equals("jenkins") ? Boolean.TRUE : Boolean.FALSE;
 
-            Awaitility.setDefaultPollInterval(Duration.ofMillis(500));
-            Awaitility.setDefaultPollDelay(Duration.ofMillis(500));
+        Awaitility.setDefaultPollInterval(Duration.ofMillis(500));
+        Awaitility.setDefaultPollDelay(Duration.ofMillis(500));
 
-            SelenideLogger.addListener("AllureSelenide", new AllureSelenide()
-                    .screenshots(Boolean.parseBoolean(System.getProperty("allure.screenshots", Boolean.TRUE.toString())))
-                    .savePageSource(Boolean.parseBoolean(System.getProperty("allure.page.sources", Boolean.TRUE.toString())))
-            );
-        }
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide()
+                .screenshots(Boolean.parseBoolean(System.getProperty("allure.screenshots", Boolean.TRUE.toString())))
+                .savePageSource(Boolean.parseBoolean(System.getProperty("allure.page.sources", Boolean.TRUE.toString())))
+        );
+    }
 
     @Override
     public void onTestSuccess(ITestResult result) {
