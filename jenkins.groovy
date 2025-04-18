@@ -1,7 +1,7 @@
 pipeline {
     agent any
 
-    parameters {
+    params {
         string(name: 'BRANCH', defaultValue: 'master')
         choice(name: 'BROWSER', choices: ['edge', 'chrome', 'firefox', 'safari'])
     }
@@ -17,7 +17,7 @@ pipeline {
     stages {
         stage("clone repo") {
             steps {
-                getProject("$REPOSITORY", "${parameters.BRANCH}")
+                getProject("$REPOSITORY", "${params.BRANCH}")
             }
         }
 
@@ -28,7 +28,7 @@ pipeline {
                     mvn clean test \
                         -Dexecution=$EXECUTION \
                         -Dbase.url=$BASE_URL \
-                        -Dbrowser=${parameters.BROWSER} \
+                        -Dbrowser=${params.BROWSER} \
                         -Dallure.screenshots=$ALLURE_SCREENSHOTS \
                         -Dallure.page.sources=$ALLURE_PAGE_SOURCES
                     """
