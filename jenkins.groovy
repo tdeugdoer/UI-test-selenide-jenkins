@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+        maven 'maven-jenkins'
+    }
+
     parameters {
         string(name: 'BRANCH', defaultValue: 'master', description: 'Git branch to build')
         choice(name: 'BROWSER', choices: ['edge', 'chrome', 'firefox', 'safari'], description: 'Browser for testing')
