@@ -20,7 +20,7 @@ public class UIListener implements ITestListener {
         Configuration.browser = System.getProperty("browser", Browsers.EDGE);
         Configuration.browserSize = "1920x1080";
         Configuration.headless = System.getProperty("execution", "").equals("jenkins") ? Boolean.TRUE : Boolean.FALSE;
-
+        System.out.println(System.getProperty("execution", "").equals("jenkins") ? Boolean.TRUE : Boolean.FALSE);
         Awaitility.setDefaultPollInterval(Duration.ofMillis(500));
         Awaitility.setDefaultPollDelay(Duration.ofMillis(500));
 
