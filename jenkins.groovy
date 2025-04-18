@@ -7,7 +7,7 @@ pipeline {
 
     parameters {
         string(name: 'BRANCH', defaultValue: 'master', description: 'Git branch to build')
-        choice(name: 'BROWSER', choices: ['edge', 'chrome', 'firefox', 'safari'], description: 'Browser for testing')
+        choice(name: 'BROWSER', choices: ['edge', 'chrome'], description: 'Browser for testing')
     }
 
     environment {
