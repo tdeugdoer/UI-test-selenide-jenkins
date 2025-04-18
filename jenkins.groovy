@@ -15,31 +15,25 @@ pipeline {
     }
 
     stages {
-        stage('Display Parameters and Environment') {
-            steps {
-                echo "=== PARAMETERS ==="
-                echo "BRANCH: $params.BRANCH"
-                echo "BROWSER: $BROWSER"
-            }
-        }
-
         stage("clone repo") {
             steps {
-                getProject("$REPOSITORY", "${params.BRANCH}")
+                getProject("$REPOSITORY", "$BRANCH")
             }
         }
 
         stage("run tests") {
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    sh """
+                    withMaven() {
+                        sh """
                             mvn clean test \
                                 -Dexecution=$EXECUTION \
                                 -Dbase.url=$BASE_URL \
-                                -Dbrowser=${params.BROWSER} \
+                                -Dbrowser=$BROWSER \
                                 -Dallure.screenshots=$ALLURE_SCREENSHOTS \
                                 -Dallure.page.sources=$ALLURE_PAGE_SOURCES
                             """
+                    }
                 }
             }
         }
