@@ -19,13 +19,16 @@ pipeline {
     }
 
     stages {
-        stage('Setup Edge') {
+        stage('Install Edge') {
             steps {
                 sh '''
-                    # Команды установки из раздела 1
-                    curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | sudo tee /usr/share/keyrings/microsoft-edge.gpg > /dev/null
-                    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/microsoft-edge.gpg] https://packages.microsoft.com/repos/edge stable main" | sudo tee /etc/apt/sources.list.d/microsoft-edge.list
-                    sudo apt-get update && sudo apt-get install -y microsoft-edge-stable
+                    # Переключение на root (если контейнер позволяет)
+                    apt-get update && \
+                    apt-get install -y wget gnupg && \
+                    curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > /usr/share/keyrings/microsoft-edge.gpg && \
+                    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/microsoft-edge.gpg] https://packages.microsoft.com/repos/edge stable main" > /etc/apt/sources.list.d/microsoft-edge.list && \
+                    apt-get update && \
+                    apt-get install -y microsoft-edge-stable
                 '''
             }
         }
